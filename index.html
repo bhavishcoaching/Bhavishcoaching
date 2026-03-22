@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bhavish Ahuja — Transformational Coach & Therapist</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --cream: #F5F0E8;
+    --warm-white: #FAF8F4;
+    --ink: #1A1510;
+    --muted: #7A6E62;
+    --accent: #C4813A;
+    --accent-light: #E8C99A;
+    --border: rgba(26,21,16,0.12);
+    --section-pad: clamp(60px, 10vw, 120px);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--warm-white);
+    color: var(--ink);
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 20px 5%;
+    background: rgba(250,248,244,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.2rem; font-weight: 500; letter-spacing: 0.04em;
+    color: var(--ink); text-decoration: none;
+  }
+  .nav-cta {
+    font-size: 0.8rem; font-weight: 500; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--accent);
+    text-decoration: none; border-bottom: 1px solid var(--accent-light);
+    padding-bottom: 2px; transition: opacity 0.2s;
+  }
+  .nav-cta:hover { opacity: 0.7; }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: grid; place-items: center;
+    padding: 120px 5% 80px;
+    background: var(--cream);
+    position: relative; overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; top: -20%; right: -10%;
+    width: 60vw; height: 60vw; max-width: 700px; max-height: 700px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(196,129,58,0.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-inner {
+    max-width: 900px; width: 100%;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center;
+  }
+  .hero-text { animation: fadeUp 0.9s ease both; }
+  .hero-eyebrow {
+    font-size: 0.72rem; font-weight: 500; letter-spacing: 0.18em;
+    text-transform: uppercase; color: var(--accent);
+    margin-bottom: 20px;
+  }
+  .hero-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.8rem, 5vw, 4.2rem);
+    font-weight: 300; line-height: 1.1;
+    margin-bottom: 16px;
+  }
+  .hero-name em { font-style: italic; color: var(--accent); }
+  .hero-tagline {
+    font-size: 1.05rem; font-weight: 300; color: var(--muted);
+    line-height: 1.7; margin-bottom: 36px; max-width: 380px;
+  }
+  .btn {
+    display: inline-block; padding: 14px 32px;
+    background: var(--ink); color: var(--warm-white);
+    font-size: 0.8rem; font-weight: 500; letter-spacing: 0.1em;
+    text-transform: uppercase; text-decoration: none;
+    transition: background 0.25s, transform 0.2s;
+  }
+  .btn:hover { background: var(--accent); transform: translateY(-1px); }
+  .btn-outline {
+    background: transparent; color: var(--ink);
+    border: 1px solid var(--ink); margin-left: 12px;
+  }
+  .btn-outline:hover { background: var(--ink); color: var(--warm-white); }
+
+  .hero-photo {
+    animation: fadeUp 0.9s 0.2s ease both;
+    position: relative;
+  }
+  .photo-frame {
+    width: 100%; aspect-ratio: 3/4; max-width: 340px;
+    background: linear-gradient(135deg, var(--accent-light) 0%, #D4A574 100%);
+    position: relative; overflow: hidden;
+  }
+  .photo-frame::after {
+    content: 'B';
+    position: absolute; inset: 0;
+    display: grid; place-items: center;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 120px; font-weight: 300;
+    color: rgba(255,255,255,0.4);
+  }
+  .photo-placeholder-note {
+    position: absolute; bottom: -32px; left: 0;
+    font-size: 0.72rem; color: var(--muted); font-style: italic;
+  }
+  /* Replace photo-frame with actual image:
+     <img src="your-photo.jpg" alt="Bhavish Ahuja" style="width:100%;aspect-ratio:3/4;object-fit:cover"> */
+
+  /* ── DIVIDER ── */
+  .ornament {
+    text-align: center; padding: 50px 5%;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.4rem; color: var(--accent-light);
+    letter-spacing: 0.4em;
+  }
+
+  /* ── ABOUT ── */
+  .about {
+    padding: var(--section-pad) 5%;
+    max-width: 1100px; margin: 0 auto;
+    display: grid; grid-template-columns: 1fr 2fr; gap: 80px; align-items: start;
+  }
+  .section-label {
+    font-size: 0.68rem; font-weight: 500; letter-spacing: 0.2em;
+    text-transform: uppercase; color: var(--accent);
+    writing-mode: vertical-rl; transform: rotate(180deg);
+    align-self: center;
+  }
+  .about-content h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.8rem, 3vw, 2.6rem); font-weight: 300;
+    line-height: 1.3; margin-bottom: 24px;
+  }
+  .about-content p {
+    font-size: 1rem; font-weight: 300; color: #4A4035;
+    line-height: 1.85; margin-bottom: 16px;
+  }
+  .tags {
+    display: flex; flex-wrap: wrap; gap: 8px; margin-top: 28px;
+  }
+  .tag {
+    padding: 6px 16px; border: 1px solid var(--border);
+    font-size: 0.78rem; letter-spacing: 0.06em; color: var(--muted);
+    background: var(--warm-white);
+  }
+
+  /* ── SESSIONS ── */
+  .sessions {
+    background: var(--ink); color: var(--cream);
+    padding: var(--section-pad) 5%;
+  }
+  .sessions-inner { max-width: 900px; margin: 0 auto; }
+  .sessions h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 4vw, 3rem); font-weight: 300;
+    margin-bottom: 12px;
+  }
+  .sessions-sub {
+    font-size: 0.9rem; color: rgba(245,240,232,0.6);
+    margin-bottom: 52px; font-weight: 300;
+  }
+  .session-cards {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 24px;
+  }
+  .session-card {
+    padding: 36px 32px;
+    border: 1px solid rgba(245,240,232,0.15);
+    position: relative; transition: border-color 0.3s;
+  }
+  .session-card:hover { border-color: var(--accent); }
+  .session-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 3.5rem; font-weight: 300; color: rgba(245,240,232,0.08);
+    position: absolute; top: 16px; right: 24px; line-height: 1;
+  }
+  .session-card h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.4rem; font-weight: 400; margin-bottom: 8px;
+  }
+  .session-duration {
+    font-size: 0.78rem; letter-spacing: 0.1em; color: var(--accent-light);
+    text-transform: uppercase; margin-bottom: 20px;
+  }
+  .session-price {
+    font-size: 1.8rem; font-weight: 300;
+    font-family: 'Cormorant Garamond', serif;
+  }
+  .session-price span { font-size: 0.9rem; color: rgba(245,240,232,0.5); }
+
+  /* ── TESTIMONIALS ── */
+  .testimonials {
+    padding: var(--section-pad) 5%;
+    background: var(--cream);
+    max-width: 100%;
+  }
+  .testimonials-inner { max-width: 900px; margin: 0 auto; }
+  .testimonials h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.8rem, 3vw, 2.4rem); font-weight: 300;
+    margin-bottom: 48px; text-align: center;
+  }
+  .testimonial-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
+  .testimonial {
+    background: var(--warm-white); padding: 32px;
+    border-left: 2px solid var(--accent);
+  }
+  .testimonial-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.15rem; font-style: italic; line-height: 1.7;
+    color: var(--ink); margin-bottom: 20px;
+  }
+  .testimonial-author {
+    font-size: 0.78rem; letter-spacing: 0.08em; color: var(--muted);
+    text-transform: uppercase;
+  }
+  .add-testimonial-note {
+    text-align: center; margin-top: 32px;
+    font-size: 0.82rem; color: var(--muted); font-style: italic;
+  }
+
+  /* ── BOOKING FORM ── */
+  .booking {
+    padding: var(--section-pad) 5%;
+    max-width: 800px; margin: 0 auto;
+    text-align: center;
+  }
+  .booking h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 4vw, 3rem); font-weight: 300;
+    margin-bottom: 12px;
+  }
+  .booking-sub {
+    font-size: 0.95rem; color: var(--muted); font-weight: 300;
+    margin-bottom: 44px; line-height: 1.7;
+  }
+
+  /* CUSTOM FORM */
+  .form-wrapper {
+    background: var(--cream);
+    padding: 48px 40px;
+    border: 1px solid var(--border);
+    text-align: left;
+  }
+  .form-row { margin-bottom: 28px; }
+  .form-row label {
+    display: block; font-size: 0.72rem; font-weight: 500;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--muted); margin-bottom: 10px;
+  }
+  .form-row input, .form-row select, .form-row textarea {
+    width: 100%; padding: 14px 16px;
+    background: var(--warm-white); border: 1px solid var(--border);
+    font-family: 'DM Sans', sans-serif; font-size: 0.95rem;
+    color: var(--ink); outline: none;
+    transition: border-color 0.2s;
+    -webkit-appearance: none;
+  }
+  .form-row input:focus, .form-row select:focus, .form-row textarea:focus {
+    border-color: var(--accent);
+  }
+  .form-row textarea { min-height: 100px; resize: vertical; }
+  .form-two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .radio-group { display: flex; flex-direction: column; gap: 10px; }
+  .radio-label {
+    display: flex; align-items: center; gap: 12px;
+    cursor: pointer; font-size: 0.9rem; color: var(--ink);
+  }
+  .radio-label input[type="radio"] {
+    width: 18px; height: 18px; flex-shrink: 0;
+    accent-color: var(--accent);
+  }
+  .form-submit {
+    width: 100%; padding: 16px; background: var(--ink);
+    color: var(--warm-white); border: none; cursor: pointer;
+    font-family: 'DM Sans', sans-serif; font-size: 0.8rem;
+    font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase;
+    transition: background 0.25s;
+    margin-top: 8px;
+  }
+  .form-submit:hover { background: var(--accent); }
+  .form-success {
+    display: none; text-align: center; padding: 40px;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.4rem; font-weight: 300; color: var(--accent);
+  }
+
+  /* OR EMBED GOOGLE FORM */
+  .divider-or {
+    text-align: center; margin: 20px 0;
+    font-size: 0.75rem; letter-spacing: 0.1em; color: var(--muted);
+  }
+  .google-form-note {
+    font-size: 0.8rem; color: var(--muted); text-align: center;
+    margin-top: 16px; font-style: italic;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--ink); color: rgba(245,240,232,0.5);
+    padding: 48px 5%; text-align: center;
+  }
+  footer p { font-size: 0.82rem; line-height: 2; }
+  footer a { color: var(--accent-light); text-decoration: none; }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(28px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 720px) {
+    .hero-inner { grid-template-columns: 1fr; gap: 40px; }
+    .hero-photo { order: -1; }
+    .photo-frame { max-width: 240px; aspect-ratio: 1/1; }
+    .about { grid-template-columns: 1fr; gap: 20px; }
+    .section-label { writing-mode: horizontal-tb; transform: none; }
+    .session-cards { grid-template-columns: 1fr; }
+    .testimonial-grid { grid-template-columns: 1fr; }
+    .form-two-col { grid-template-columns: 1fr; }
+    .form-wrapper { padding: 32px 24px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">Bhavish Ahuja</a>
+  <a href="#book" class="nav-cta">Book a Session</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-text">
+      <p class="hero-eyebrow">Transformational Coach &amp; Therapist</p>
+      <h1 class="hero-name">Bhavish<br><em>Ahuja</em></h1>
+      <p class="hero-tagline">A space to meet yourself honestly — and begin the work of becoming whole.</p>
+      <a href="#book" class="btn">Book a Session</a>
+      <a href="#about" class="btn btn-outline">Learn More</a>
+    </div>
+    <div class="hero-photo">
+      <!-- REPLACE: swap the div below with <img src="your-photo.jpg" ...> -->
+      <div class="photo-frame"></div>
+      <p class="photo-placeholder-note">← Replace with your photo</p>
+    </div>
+  </div>
+</section>
+
+<div class="ornament">✦ &nbsp; &nbsp; ✦ &nbsp; &nbsp; ✦</div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about">
+    <span class="section-label">About</span>
+    <div class="about-content">
+      <h2>Real transformation begins<br>from the inside out.</h2>
+      <p>
+        Bhavish Ahuja is a Transformational Coach and Therapist who works at the intersection
+        of inner work, embodied healing, and conscious living. His approach is deeply personal —
+        meeting each individual where they are, with compassion and clarity.
+      </p>
+      <p>
+        Whether you're navigating a life transition, seeking deeper self-understanding, or simply
+        feeling stuck — sessions with Bhavish are a container for honest exploration and lasting change.
+      </p>
+      <!-- EDIT: Add more about yourself here -->
+      <div class="tags">
+        <span class="tag">Transformational Coaching</span>
+        <span class="tag">Therapy</span>
+        <span class="tag">Inner Child Work</span>
+        <span class="tag">Conscious Relationships</span>
+        <span class="tag">Embodiment</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SESSIONS -->
+<section class="sessions" id="sessions">
+  <div class="sessions-inner">
+    <h2>Session Offerings</h2>
+    <p class="sessions-sub">Energy exchange for transformation</p>
+    <div class="session-cards">
+      <div class="session-card">
+        <span class="session-num">01</span>
+        <h3>First Session</h3>
+        <p class="session-duration">90 minutes</p>
+        <p class="session-price">₹10,000 <span>/ session</span></p>
+      </div>
+      <div class="session-card">
+        <span class="session-num">02</span>
+        <h3>Follow-up Session</h3>
+        <p class="session-duration">60 minutes</p>
+        <p class="session-price">₹10,000 <span>/ session</span></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials" id="testimonials">
+  <div class="testimonials-inner">
+    <h2>What People Are Saying</h2>
+    <div class="testimonial-grid">
+      <!-- EDIT: Replace with real testimonials -->
+      <div class="testimonial">
+        <p class="testimonial-text">"Working with Bhavish was one of the most profoundly clarifying experiences of my life. I came in circles and left with direction."</p>
+        <p class="testimonial-author">— A.K., Delhi</p>
+      </div>
+      <div class="testimonial">
+        <p class="testimonial-text">"The gentleness and depth he brings to the work is rare. I felt genuinely seen — perhaps for the first time."</p>
+        <p class="testimonial-author">— S.M., Mumbai</p>
+      </div>
+      <!-- Add more testimonials here -->
+    </div>
+    <p class="add-testimonial-note">Testimonials can be updated any time — just edit the HTML above.</p>
+  </div>
+</section>
+
+<!-- BOOKING -->
+<section class="booking" id="book">
+  <h2>Book Your Session</h2>
+  <p class="booking-sub">
+    Fill in the form below to enquire about availability.<br>
+    Bhavish will get back to you personally to confirm.
+  </p>
+
+  <div class="form-wrapper">
+    <form id="bookingForm">
+
+      <div class="form-row">
+        <label>Your Name *</label>
+        <input type="text" name="name" required placeholder="Full name">
+      </div>
+
+      <div class="form-two-col">
+        <div class="form-row">
+          <label>Email Address *</label>
+          <input type="email" name="email" required placeholder="your@email.com">
+        </div>
+        <div class="form-row">
+          <label>Phone Number</label>
+          <input type="tel" name="phone" placeholder="+91 XXXXX XXXXX">
+        </div>
+      </div>
+
+      <div class="form-two-col">
+        <div class="form-row">
+          <label>Preferred Date *</label>
+          <input type="date" name="date" required>
+        </div>
+        <div class="form-row">
+          <label>Preferred Time *</label>
+          <input type="time" name="time" required>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <label>Session Type *</label>
+        <div class="radio-group">
+          <label class="radio-label">
+            <input type="radio" name="session_type" value="first" required>
+            First Session — 90 mins — ₹10,000
+          </label>
+          <label class="radio-label">
+            <input type="radio" name="session_type" value="followup">
+            Follow-up Session — 60 mins — ₹10,000
+          </label>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <label>Mode of Payment *</label>
+        <div class="radio-group">
+          <label class="radio-label"><input type="radio" name="payment" value="cash" required> Cash</label>
+          <label class="radio-label"><input type="radio" name="payment" value="online"> Online</label>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <label>Anything you'd like to share? <span style="text-transform:none;letter-spacing:0;font-weight:300">(optional)</span></label>
+        <textarea name="message" placeholder="What's bringing you here? What are you hoping to explore?"></textarea>
+      </div>
+
+      <button type="submit" class="form-submit">Enquire for a Session →</button>
+    </form>
+
+    <div class="form-success" id="formSuccess">
+      ✦ &nbsp; Thank you. Bhavish will reach out to you shortly. &nbsp; ✦
+    </div>
+  </div>
+
+  <p class="google-form-note">
+    Prefer the original Google Form?
+    <a href="https://docs.google.com/forms/d/e/YOUR_FORM_ID/viewform" target="_blank" style="color:var(--accent)">Click here →</a>
+    <!-- EDIT: Replace YOUR_FORM_ID with your actual Google Form URL -->
+  </p>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>
+    Bhavish Ahuja &nbsp;·&nbsp; Transformational Coach &amp; Therapist<br>
+    <!-- EDIT: Add your city, Instagram, or contact info below -->
+    <!-- <a href="https://instagram.com/yourhandle">@yourhandle</a> &nbsp;·&nbsp; -->
+    For queries: <a href="mailto:your@email.com">your@email.com</a>
+  </p>
+  <p style="margin-top:16px;font-size:0.72rem;opacity:0.4;">© 2026 Bhavish Ahuja. All rights reserved.</p>
+</footer>
+
+<script>
+  // Simple form handler — submits to Google Forms or handles natively
+  document.getElementById('bookingForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    // OPTION A: Just show a thank-you message (you'll get email via Formspree below)
+    this.style.display = 'none';
+    document.getElementById('formSuccess').style.display = 'block';
+
+    // OPTION B: To actually receive submissions, sign up at formspree.io
+    // Replace the form tag with: <form action="https://formspree.io/f/YOUR_ID" method="POST">
+    // and remove this JS block. Free tier = 50 submissions/month.
+  });
+</script>
+
+</body>
+</html>

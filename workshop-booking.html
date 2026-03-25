@@ -1,0 +1,1067 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Group Workshop — Bhavish Ahuja</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #F7F3EE;
+    --warm-white: #FDFAF6;
+    --ink: #1C1A18;
+    --muted: #6B6560;
+    --accent: #B8845A;
+    --accent-light: #E8D5C0;
+    --accent-pale: #F5EDE3;
+    --border: rgba(28,26,24,0.1);
+    --shadow: rgba(28,26,24,0.08);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--warm-white);
+    color: var(--ink);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* ── GRAIN OVERLAY ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 999;
+    opacity: 0.4;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 20px 48px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(253,250,246,0.88);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.25rem;
+    font-weight: 400;
+    letter-spacing: 0.04em;
+    color: var(--ink);
+    text-decoration: none;
+  }
+
+  .nav-pill {
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    background: var(--accent-pale);
+    border: 1px solid var(--accent-light);
+    padding: 6px 16px;
+    border-radius: 100px;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 140px 48px 80px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -120px; right: -120px;
+    width: 500px; height: 500px;
+    background: radial-gradient(circle, var(--accent-pale) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero-eyebrow {
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 28px;
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards 0.1s;
+  }
+
+  .hero h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.8rem, 7vw, 6rem);
+    font-weight: 300;
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+    max-width: 800px;
+    opacity: 0;
+    animation: fadeUp 0.9s ease forwards 0.25s;
+  }
+
+  .hero h1 em {
+    font-style: italic;
+    color: var(--accent);
+  }
+
+  .hero-sub {
+    margin-top: 28px;
+    font-size: 1.05rem;
+    color: var(--muted);
+    max-width: 480px;
+    opacity: 0;
+    animation: fadeUp 0.9s ease forwards 0.4s;
+  }
+
+  .hero-meta {
+    display: flex;
+    gap: 32px;
+    margin-top: 48px;
+    flex-wrap: wrap;
+    opacity: 0;
+    animation: fadeUp 0.9s ease forwards 0.55s;
+  }
+
+  .meta-item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .meta-label {
+    font-size: 0.68rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .meta-value {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.2rem;
+    font-weight: 400;
+    color: var(--ink);
+  }
+
+  .hero-divider {
+    width: 40px;
+    height: 1px;
+    background: var(--accent-light);
+    margin: 12px 0;
+  }
+
+  /* ── SECTION COMMONS ── */
+  section {
+    padding: 80px 48px;
+  }
+
+  .section-label {
+    font-size: 0.68rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .section-label::after {
+    content: '';
+    flex: 1;
+    max-width: 40px;
+    height: 1px;
+    background: var(--accent-light);
+  }
+
+  h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.8rem, 4vw, 3rem);
+    font-weight: 300;
+    line-height: 1.2;
+    margin-bottom: 20px;
+  }
+
+  h2 em { font-style: italic; color: var(--accent); }
+
+  /* ── WHAT YOU'LL EXPERIENCE ── */
+  .experience {
+    background: var(--cream);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .experience-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    margin-top: 48px;
+    max-width: 900px;
+  }
+
+  .exp-card {
+    position: relative;
+    padding: 32px;
+    background: var(--warm-white);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .exp-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 40px var(--shadow);
+  }
+
+  .exp-number {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 3rem;
+    font-weight: 300;
+    color: var(--accent-light);
+    line-height: 1;
+    margin-bottom: 16px;
+  }
+
+  .exp-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem;
+    font-weight: 400;
+    margin-bottom: 10px;
+  }
+
+  .exp-desc {
+    font-size: 0.88rem;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+
+  /* ── PRICING ── */
+  .pricing-wrapper {
+    max-width: 680px;
+  }
+
+  .price-card {
+    background: var(--ink);
+    color: var(--warm-white);
+    border-radius: 8px;
+    padding: 48px;
+    margin-top: 36px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .price-card::before {
+    content: '';
+    position: absolute;
+    top: -80px; right: -80px;
+    width: 300px; height: 300px;
+    background: radial-gradient(circle, rgba(184,132,90,0.25) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .price-tag {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 4rem;
+    font-weight: 300;
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+
+  .price-tag span {
+    font-size: 1.5rem;
+    vertical-align: super;
+    color: var(--accent);
+  }
+
+  .price-note {
+    font-size: 0.8rem;
+    color: rgba(253,250,246,0.5);
+    letter-spacing: 0.06em;
+    margin-bottom: 32px;
+  }
+
+  .price-includes {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 36px;
+  }
+
+  .price-includes li {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    font-size: 0.9rem;
+    color: rgba(253,250,246,0.8);
+  }
+
+  .price-includes li::before {
+    content: '—';
+    color: var(--accent);
+    flex-shrink: 0;
+  }
+
+  .bonus-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(184,132,90,0.15);
+    border: 1px solid rgba(184,132,90,0.3);
+    color: var(--accent-light);
+    font-size: 0.78rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 8px 16px;
+    border-radius: 100px;
+    margin-bottom: 16px;
+  }
+
+  .bonus-desc {
+    font-size: 0.88rem;
+    color: rgba(253,250,246,0.6);
+    margin-bottom: 32px;
+  }
+
+  /* ── CTA BUTTON ── */
+  .btn-primary {
+    display: inline-block;
+    background: var(--accent);
+    color: var(--warm-white);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 400;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 16px 36px;
+    border: none;
+    border-radius: 100px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    width: 100%;
+    text-align: center;
+  }
+
+  .btn-primary:hover {
+    background: #A3734C;
+    transform: translateY(-2px);
+    box-shadow: 0 12px 32px rgba(184,132,90,0.35);
+  }
+
+  .btn-outline {
+    display: inline-block;
+    background: transparent;
+    color: var(--ink);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 400;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 15px 36px;
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    width: 100%;
+    text-align: center;
+    margin-top: 12px;
+  }
+
+  .btn-outline:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  /* ── INTAKE FORM ── */
+  .form-section {
+    background: var(--cream);
+    border-top: 1px solid var(--border);
+  }
+
+  .form-inner {
+    max-width: 640px;
+  }
+
+  .form-intro {
+    font-size: 0.95rem;
+    color: var(--muted);
+    margin-bottom: 44px;
+    max-width: 480px;
+    line-height: 1.8;
+  }
+
+  .form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .form-group.full { grid-column: 1 / -1; }
+
+  label {
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  input, select, textarea {
+    background: var(--warm-white);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 14px 18px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 300;
+    color: var(--ink);
+    outline: none;
+    transition: border-color 0.25s ease, box-shadow 0.25s ease;
+    width: 100%;
+    -webkit-appearance: none;
+  }
+
+  input::placeholder, textarea::placeholder {
+    color: rgba(107,101,96,0.45);
+  }
+
+  input:focus, select:focus, textarea:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(184,132,90,0.1);
+  }
+
+  textarea { resize: vertical; min-height: 120px; }
+
+  select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%236B6560' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 16px center;
+    padding-right: 40px;
+  }
+
+  .form-footer {
+    margin-top: 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .form-consent {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    font-size: 0.8rem;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  .form-consent input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    min-width: 16px;
+    margin-top: 2px;
+    accent-color: var(--accent);
+    padding: 0;
+  }
+
+  .submit-btn {
+    background: var(--ink);
+    color: var(--warm-white);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 400;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 18px 40px;
+    border: none;
+    border-radius: 100px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .submit-btn::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(184,132,90,0.2) 0%, transparent 60%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .submit-btn:hover {
+    background: #2E2B27;
+    transform: translateY(-2px);
+    box-shadow: 0 14px 36px rgba(28,26,24,0.2);
+  }
+
+  .submit-btn:hover::after { opacity: 1; }
+
+  /* ── GUIDE ── */
+  .guide {
+    max-width: 860px;
+  }
+
+  .guide-card {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 40px;
+    align-items: start;
+    margin-top: 40px;
+    padding: 40px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--cream);
+  }
+
+  .guide-avatar {
+    width: 100px; height: 100px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--accent-light) 0%, var(--accent-pale) 100%);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.2rem;
+    font-weight: 300;
+    color: var(--accent);
+    flex-shrink: 0;
+  }
+
+  .guide-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.8rem;
+    font-weight: 400;
+    margin-bottom: 6px;
+  }
+
+  .guide-role {
+    font-size: 0.78rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 16px;
+  }
+
+  .guide-bio {
+    font-size: 0.92rem;
+    color: var(--muted);
+    line-height: 1.8;
+  }
+
+  /* ── FAQ ── */
+  .faq-list { max-width: 600px; margin-top: 36px; }
+
+  .faq-item {
+    border-bottom: 1px solid var(--border);
+    padding: 20px 0;
+  }
+
+  .faq-q {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem;
+    font-weight: 400;
+    color: var(--ink);
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    user-select: none;
+  }
+
+  .faq-icon {
+    color: var(--accent);
+    font-size: 1.2rem;
+    transition: transform 0.3s ease;
+    flex-shrink: 0;
+  }
+
+  .faq-a {
+    font-size: 0.88rem;
+    color: var(--muted);
+    line-height: 1.8;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease, padding 0.3s ease;
+  }
+
+  .faq-item.open .faq-a { max-height: 200px; padding-top: 14px; }
+  .faq-item.open .faq-icon { transform: rotate(45deg); }
+
+  /* ── FOOTER CTA ── */
+  .footer-cta {
+    text-align: center;
+    background: var(--ink);
+    color: var(--warm-white);
+    padding: 100px 48px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .footer-cta::before {
+    content: '';
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 700px; height: 400px;
+    background: radial-gradient(ellipse, rgba(184,132,90,0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .footer-cta h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 5vw, 4rem);
+    font-weight: 300;
+    color: var(--warm-white);
+    margin-bottom: 20px;
+    position: relative;
+  }
+
+  .footer-cta h2 em { color: var(--accent); }
+
+  .footer-cta p {
+    color: rgba(253,250,246,0.55);
+    font-size: 0.95rem;
+    max-width: 420px;
+    margin: 0 auto 40px;
+    position: relative;
+  }
+
+  .footer-btn {
+    display: inline-block;
+    background: var(--accent);
+    color: var(--warm-white);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 400;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 18px 48px;
+    border-radius: 100px;
+    text-decoration: none;
+    cursor: pointer;
+    border: none;
+    transition: all 0.3s ease;
+    position: relative;
+  }
+
+  .footer-btn:hover {
+    background: #A3734C;
+    transform: translateY(-2px);
+    box-shadow: 0 16px 40px rgba(184,132,90,0.35);
+  }
+
+  /* ── SUCCESS STATE ── */
+  .success-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(28,26,24,0.7);
+    backdrop-filter: blur(8px);
+    z-index: 200;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .success-overlay.show { display: flex; }
+
+  .success-card {
+    background: var(--warm-white);
+    padding: 56px 48px;
+    border-radius: 12px;
+    text-align: center;
+    max-width: 440px;
+    width: calc(100% - 48px);
+    animation: popIn 0.5s cubic-bezier(0.34,1.56,0.64,1);
+  }
+
+  .success-icon {
+    width: 64px; height: 64px;
+    background: var(--accent-pale);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 24px;
+    font-size: 1.5rem;
+  }
+
+  .success-card h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.8rem;
+    font-weight: 400;
+    margin-bottom: 12px;
+  }
+
+  .success-card p {
+    font-size: 0.9rem;
+    color: var(--muted);
+    line-height: 1.7;
+    margin-bottom: 28px;
+  }
+
+  .close-btn {
+    background: var(--ink);
+    color: var(--warm-white);
+    border: none;
+    padding: 14px 32px;
+    border-radius: 100px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.82rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.25s ease;
+  }
+
+  .close-btn:hover { background: #2E2B27; }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes popIn {
+    from { opacity: 0; transform: scale(0.85); }
+    to   { opacity: 1; transform: scale(1); }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .reveal.visible { opacity: 1; transform: none; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 700px) {
+    nav { padding: 16px 24px; }
+    section { padding: 60px 24px; }
+    .hero { padding: 120px 24px 60px; }
+    .experience-grid { grid-template-columns: 1fr; gap: 20px; }
+    .form-grid { grid-template-columns: 1fr; }
+    .guide-card { grid-template-columns: 1fr; }
+    .guide-avatar { margin: 0 auto; }
+    .footer-cta { padding: 80px 24px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">Bhavish Ahuja</a>
+  <span class="nav-pill">Group Workshop</span>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <p class="hero-eyebrow">A new offering</p>
+  <h1>From Inner Noise<br>to <em>Shared Stillness</em></h1>
+  <p class="hero-sub">A live group workshop where many minds slow down together — and something shifts that rarely shifts alone.</p>
+
+  <div class="hero-meta">
+    <div class="meta-item">
+      <span class="meta-label">Format</span>
+      <div class="hero-divider"></div>
+      <span class="meta-value">📅 Live Guided</span>
+    </div>
+    <div class="meta-item">
+      <span class="meta-label">Duration</span>
+      <div class="hero-divider"></div>
+      <span class="meta-value">🕒 90 Minutes</span>
+    </div>
+    <div class="meta-item">
+      <span class="meta-label">What to bring</span>
+      <div class="hero-divider"></div>
+      <span class="meta-value">🎧 Headphones</span>
+    </div>
+    <div class="meta-item">
+      <span class="meta-label">Participation Fee</span>
+      <div class="hero-divider"></div>
+      <span class="meta-value">🎟 ₹299</span>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT YOU'LL EXPERIENCE -->
+<section class="experience">
+  <div class="reveal">
+    <p class="section-label">What unfolds</p>
+    <h2>Four movements<br>toward <em>ease</em></h2>
+  </div>
+
+  <div class="experience-grid reveal">
+    <div class="exp-card">
+      <div class="exp-number">01</div>
+      <div class="exp-title">Arriving & Settling</div>
+      <p class="exp-desc">We begin by slowing the pace. No agenda, no performance. Just arriving fully — and noticing what you're carrying.</p>
+    </div>
+    <div class="exp-card">
+      <div class="exp-number">02</div>
+      <div class="exp-title">The Group Shift</div>
+      <p class="exp-desc">There's something that happens in shared stillness that doesn't happen alone. The group becomes the container — and something releases.</p>
+    </div>
+    <div class="exp-card">
+      <div class="exp-number">03</div>
+      <div class="exp-title">Guided Deep Release</div>
+      <p class="exp-desc">Bhavish guides the room into a deeper state — where the nervous system softens, thoughts quiet, and the body finally lets go.</p>
+    </div>
+    <div class="exp-card">
+      <div class="exp-number">04</div>
+      <div class="exp-title">Integration & Clarity</div>
+      <p class="exp-desc">We close gently. You leave with more clarity than you came with — and a sense of lightness that stays beyond the session.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section>
+  <div class="reveal pricing-wrapper">
+    <p class="section-label">Investment</p>
+    <h2>A rare price<br>for a <em>real shift</em></h2>
+
+    <div class="price-card">
+      <div class="price-tag"><span>₹</span>299</div>
+      <p class="price-note">per person · live session</p>
+
+      <ul class="price-includes">
+        <li>Full 90-minute live guided session</li>
+        <li>Guided deep release experience</li>
+        <li>Group integration & open space</li>
+        <li>Headphones-recommended immersion</li>
+      </ul>
+
+      <div class="bonus-tag">🎁 Bonus Included</div>
+      <p class="bonus-desc">Guided Inner Reset Audio — to return to calm whenever you need it.</p>
+
+      <a href="#intake" class="btn-primary">Reserve My Seat — ₹299</a>
+    </div>
+  </div>
+</section>
+
+<!-- GUIDE -->
+<section>
+  <div class="reveal guide">
+    <p class="section-label">Your guide</p>
+    <h2>The person<br>holding <em>the space</em></h2>
+
+    <div class="guide-card">
+      <div class="guide-avatar">B</div>
+      <div>
+        <div class="guide-name">Bhavish Ahuja</div>
+        <div class="guide-role">Transformational Coach · Therapist · Speaker</div>
+        <p class="guide-bio">
+          With over 10 years of experience working with professionals and entrepreneurs,
+          Bhavish specialises in helping people move from constant mental noise to calm clarity.
+          His approach doesn't involve more thinking — it works by creating the conditions for the mind to naturally let go.
+          He has guided many individuals through exactly this kind of shift.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- INTAKE FORM -->
+<section class="form-section" id="intake">
+  <div class="form-inner reveal">
+    <p class="section-label">Reserve your seat</p>
+    <h2>You're one step<br>from <em>lighter</em></h2>
+    <p class="form-intro">Fill in a few details below. Once submitted, you'll receive confirmation and payment instructions within 24 hours.</p>
+
+    <form id="bookingForm" onsubmit="handleSubmit(event)">
+      <div class="form-grid">
+        <div class="form-group">
+          <label for="fname">First Name</label>
+          <input type="text" id="fname" placeholder="Your first name" required>
+        </div>
+        <div class="form-group">
+          <label for="lname">Last Name</label>
+          <input type="text" id="lname" placeholder="Your last name" required>
+        </div>
+        <div class="form-group full">
+          <label for="email">Email Address</label>
+          <input type="email" id="email" placeholder="you@email.com" required>
+        </div>
+        <div class="form-group full">
+          <label for="phone">Phone / WhatsApp</label>
+          <input type="tel" id="phone" placeholder="+91 98765 43210">
+        </div>
+        <div class="form-group full">
+          <label for="where">How did you hear about this?</label>
+          <select id="where">
+            <option value="" disabled selected>Select one</option>
+            <option>Instagram</option>
+            <option>Word of mouth</option>
+            <option>Previous session with Bhavish</option>
+            <option>Website</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="form-group full">
+          <label for="note">What's been on your mind? <span style="color:var(--accent-light)">(optional)</span></label>
+          <textarea id="note" placeholder="Share anything you'd like Bhavish to know before the session…"></textarea>
+        </div>
+      </div>
+
+      <div class="form-footer">
+        <label class="form-consent">
+          <input type="checkbox" required>
+          I understand this is a live session (not recorded) and that seats are limited. I'm ready to show up fully.
+        </label>
+        <button type="submit" class="submit-btn">Reserve My Seat — ₹299</button>
+      </div>
+    </form>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section>
+  <div class="reveal">
+    <p class="section-label">Common questions</p>
+    <h2>Before you <em>wonder</em></h2>
+  </div>
+
+  <div class="faq-list reveal">
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        Is this different from the 90-minute session?
+        <span class="faq-icon">+</span>
+      </div>
+      <p class="faq-a">Yes. The group workshop is a longer, deeper experience that draws on the power of collective stillness. Something shifts in a group that doesn't happen alone.</p>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        Do I need any prior experience?
+        <span class="faq-icon">+</span>
+      </div>
+      <p class="faq-a">None at all. You simply arrive, sit comfortably, wear headphones, and follow Bhavish's guidance. No effort, no pressure.</p>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        Will I be asked to speak or share?
+        <span class="faq-icon">+</span>
+      </div>
+      <p class="faq-a">No. This is a fully guided, silent experience. You are here to receive — not to perform or share.</p>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        What if I find it hard to relax?
+        <span class="faq-icon">+</span>
+      </div>
+      <p class="faq-a">That's exactly who this is designed for. The resistance itself is what softens. Just showing up is enough.</p>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        How do I pay after registering?
+        <span class="faq-icon">+</span>
+      </div>
+      <p class="faq-a">After you submit the form, you'll receive payment details via email or WhatsApp within 24 hours. Your seat is confirmed upon payment.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER CTA -->
+<div class="footer-cta">
+  <h2>Your mind has been<br>carrying enough. <em>Let go.</em></h2>
+  <p>A small group. A safe space. A chance to finally slow down.</p>
+  <a href="#intake" class="footer-btn">Reserve My Seat — ₹299</a>
+</div>
+
+<!-- SUCCESS MODAL -->
+<div class="success-overlay" id="successOverlay">
+  <div class="success-card">
+    <div class="success-icon">✦</div>
+    <h3>You're registered</h3>
+    <p>Thank you for taking this step. Bhavish's team will reach out within 24 hours with payment details and everything you need before the session.</p>
+    <button class="close-btn" onclick="document.getElementById('successOverlay').classList.remove('show')">Close</button>
+  </div>
+</div>
+
+<script>
+  // FAQ toggle
+  function toggleFaq(el) {
+    const item = el.parentElement;
+    item.classList.toggle('open');
+  }
+
+  // Form submit — Formspree
+  async function handleSubmit(e) {
+    e.preventDefault();
+    const form = e.target;
+    const btn = form.querySelector('.submit-btn');
+    const originalText = btn.textContent;
+
+    btn.textContent = 'Sending…';
+    btn.disabled = true;
+
+    const data = {
+      firstName:  document.getElementById('fname').value,
+      lastName:   document.getElementById('lname').value,
+      email:      document.getElementById('email').value,
+      phone:      document.getElementById('phone').value,
+      heardFrom:  document.getElementById('where').value,
+      note:       document.getElementById('note').value,
+    };
+
+    try {
+      // ← Replace YOUR_FORM_ID with your actual Formspree form ID
+      const res = await fetch('https://formspree.io/f/YOUR_FORM_ID', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify(data),
+      });
+
+      if (res.ok) {
+        document.getElementById('successOverlay').classList.add('show');
+        form.reset();
+      } else {
+        const json = await res.json();
+        alert('Something went wrong: ' + (json?.errors?.[0]?.message || 'Please try again.'));
+      }
+    } catch (err) {
+      alert('Network error. Please check your connection and try again.');
+    } finally {
+      btn.textContent = originalText;
+      btn.disabled = false;
+    }
+  }
+
+  // Scroll reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.12 });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>

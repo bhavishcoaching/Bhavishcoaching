@@ -739,6 +739,37 @@
 
   .close-btn:hover { background: #2E2B27; }
 
+  /* ── RAZORPAY BUTTON WRAPPER ── */
+  .razorpay-wrapper {
+    margin-top: 32px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .razorpay-wrapper-dark {
+    margin-top: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+
+  .razorpay-note {
+    font-size: 0.75rem;
+    color: rgba(107,101,96,0.6);
+    letter-spacing: 0.06em;
+  }
+
+  .razorpay-note-dark {
+    font-size: 0.75rem;
+    color: rgba(253,250,246,0.4);
+    letter-spacing: 0.06em;
+    text-align: center;
+    margin-top: 6px;
+  }
+
   /* ── ANIMATIONS ── */
   @keyframes fadeUp {
     from { opacity: 0; transform: translateY(24px); }
@@ -860,7 +891,10 @@
       <div class="bonus-tag">🎁 Bonus Included</div>
       <p class="bonus-desc">Guided Inner Reset Audio — to return to calm whenever you need it.</p>
 
-      <a href="#intake" class="btn-primary">Reserve My Seat — ₹299</a>
+      <div class="razorpay-wrapper-dark">
+        <form><script src="https://checkout.razorpay.com/v1/payment-button.js" data-payment_button_id="pl_SaRc2rQUyPsO3f" async> </script></form>
+        <p class="razorpay-note-dark">🔒 Secure payment via Razorpay · UPI, Cards, Net Banking accepted</p>
+      </div>
     </div>
   </div>
 </section>
@@ -892,7 +926,7 @@
   <div class="form-inner reveal">
     <p class="section-label">Reserve your seat</p>
     <h2>You're one step<br>from <em>lighter</em></h2>
-    <p class="form-intro">Fill in a few details below. Once submitted, you'll receive confirmation and payment instructions within 24 hours.</p>
+    <p class="form-intro">Fill in your details below, then pay ₹299 instantly to confirm your seat. You'll receive a confirmation on WhatsApp / email right after payment.</p>
 
     <form id="bookingForm" onsubmit="handleSubmit(event)">
       <div class="form-grid">
@@ -930,7 +964,10 @@
       </div>
 
       <div class="form-footer">
-        <button type="submit" class="submit-btn">Reserve My Seat — ₹299</button>
+        <div class="razorpay-wrapper">
+          <form><script src="https://checkout.razorpay.com/v1/payment-button.js" data-payment_button_id="pl_SaRc2rQUyPsO3f" async> </script></form>
+          <p class="razorpay-note">🔒 Secure checkout · UPI, Cards, Net Banking &amp; Wallets accepted</p>
+        </div>
       </div>
     </form>
   </div>
@@ -977,7 +1014,7 @@
         How do I pay after registering?
         <span class="faq-icon">+</span>
       </div>
-      <p class="faq-a">After you submit the form, you'll receive payment details via email or WhatsApp within 24 hours. Your seat is confirmed upon payment.</p>
+      <p class="faq-a">Payment is done instantly via Razorpay on this page — UPI, cards, net banking, and wallets are all accepted. Once payment is confirmed, your seat is reserved and you'll receive a confirmation.</p>
     </div>
   </div>
 </section>
@@ -994,7 +1031,7 @@
   <div class="success-card">
     <div class="success-icon">✦</div>
     <h3>You're registered</h3>
-    <p>Thank you for taking this step. Bhavish's team will reach out within 24 hours with payment details and everything you need before the session.</p>
+    <p>Thank you for taking this step. Your seat is confirmed upon successful payment. Bhavish's team will reach out shortly with everything you need before the session.</p>
     <button class="close-btn" onclick="document.getElementById('successOverlay').classList.remove('show')">Close</button>
   </div>
 </div>
